@@ -27,6 +27,7 @@
 #include "karts/abstract_kart.hpp"
 #include "modes/world.hpp"
 #include "tracks/track.hpp"
+#include "../bsn_client.hpp"
 
 #include <irrlicht.h>
 
@@ -52,6 +53,7 @@ WorldStatus::WorldStatus()
  */
 void WorldStatus::reset()
 {
+	bsn_set_center();
     m_time            = 0.0f;
     m_auxiliary_timer = 0.0f;
     // Using SETUP_PHASE will play the track into sfx first, and has no

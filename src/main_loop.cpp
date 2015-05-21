@@ -115,7 +115,8 @@ void MainLoop::run()
 {
     IrrlichtDevice* device = irr_driver->getDevice();
 
-    m_curr_time = device->getTimer()->getRealTime();
+    m_curr_time = device->getTimer()->getRealTime();	
+	//bsn_start_stream();
     while(!m_abort)
     {
         PROFILER_PUSH_CPU_MARKER("Main loop", 0xFF, 0x00, 0xF7);
@@ -180,6 +181,7 @@ void MainLoop::run()
         PROFILER_POP_CPU_MARKER();
         PROFILER_SYNC_FRAME();
     }  // while !m_abort
+	//bsn_stop_stream();
 
 }   // run
 

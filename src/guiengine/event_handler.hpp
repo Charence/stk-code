@@ -20,8 +20,8 @@
 
 #include <vector2d.h>
 #include <IEventReceiver.h>
-#include "input/input.hpp"
-#include "utils/leak_check.hpp"
+#include "../input/input.hpp"
+#include "../utils/leak_check.hpp"
 
 /**
  * \ingroup guiengine

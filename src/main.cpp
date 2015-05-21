@@ -204,6 +204,7 @@
 #include "utils/leak_check.hpp"
 #include "utils/log.hpp"
 #include "utils/translation.hpp"
+#include "./bsn_client.hpp"
 
 static void cleanSuperTuxKart();
 static void cleanUserConfig();
@@ -1280,6 +1281,7 @@ int main(int argc, char *argv[] )
         // Get into menu mode initially.
         input_manager->setMode(InputManager::MENU);
         main_loop = new MainLoop();
+		bsn_init("sensor_config.txt");
         material_manager->loadMaterial();
 
         // Load the font textures - they are all lazily loaded

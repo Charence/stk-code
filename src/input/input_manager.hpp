@@ -24,9 +24,9 @@
 #include <vector>
 #include <set>
 
-#include "guiengine/event_handler.hpp"
-#include "input/input.hpp"
-#include "utils/no_copy.hpp"
+#include "../guiengine/event_handler.hpp"
+#include "input.hpp"
+#include "../utils/no_copy.hpp"
 
 class DeviceManager;
 

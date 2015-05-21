@@ -384,6 +384,7 @@ namespace irr
 
 		//! Process system events
 		void handleSystemMessages();
+		void BsnMessages();
 
 		void getWindowsVersion(core::stringc& version);
 

@@ -1892,6 +1892,7 @@ namespace irr
 	static bool alreadyUp_paddling = true;
 	static bool alreadyUp_right_turn = true;
 	static bool alreadyUp_left_turn = true;
+	static bool  alreadyUp_Jump = true;
 
 	//! Process system events
 	void CIrrDeviceWin32::BsnMessages()
@@ -1904,11 +1905,11 @@ namespace irr
 		bool left_turn;
 		bool paddling;
 		bool braking;
-
+		bool jump1;
 		float bsn_x, bsn_y, bsn_z;
 		float sensibility = 0.5;
 
-		bsn_control = bsn_state(&bsn_x, &bsn_y, &bsn_z);
+		bsn_control = bsn_state1(&bsn_x, &bsn_y, &bsn_z);
 		if (bsn_control)
 		{
 			braking = (bsn_z < -sensibility);
@@ -1972,7 +1973,26 @@ namespace irr
 				WndProc(HWnd, message, wParam, lParam);
 				alreadyUp_left_turn = true;
 			}
-		}	
+		}
+		bsn_control = bsn_state2(&bsn_x, &bsn_y, &bsn_z);
+		if (bsn_control)
+		{			
+			jump1 = (abs(bsn_y) + abs(bsn_x) + abs(bsn_z)  > 20);			
+			if (jump1)
+			{
+				message = WM_KEYDOWN;
+				alreadyUp_Jump = false;
+				wParam = KEY_SPACE;
+				WndProc(HWnd, message, wParam, lParam);
+			}
+			else if (!alreadyUp_Jump)
+			{
+				message = WM_KEYUP;
+				wParam = KEY_SPACE;
+				alreadyUp_Jump = true;
+				WndProc(HWnd, message, wParam, lParam);
+			}			
+		}
 
 }
 

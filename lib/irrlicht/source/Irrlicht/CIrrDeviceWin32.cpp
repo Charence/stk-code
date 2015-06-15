@@ -1916,7 +1916,7 @@ namespace irr
 			paddling = (bsn_z > sensibility);
 			right_turn = (bsn_x > sensibility);
 			left_turn = (bsn_x < -sensibility);
-
+			jump1 = (bsn_y  > sensibility);
 			if (braking)
 			{
 				message = WM_KEYDOWN;
@@ -1972,12 +1972,7 @@ namespace irr
 				wParam = KEY_LEFT;
 				WndProc(HWnd, message, wParam, lParam);
 				alreadyUp_left_turn = true;
-			}
-		}
-		bsn_control = bsn_state2(&bsn_x, &bsn_y, &bsn_z);
-		if (bsn_control)
-		{			
-			jump1 = (abs(bsn_y) + abs(bsn_x) + abs(bsn_z)  > 20);			
+			}			
 			if (jump1)
 			{
 				message = WM_KEYDOWN;
@@ -1991,8 +1986,8 @@ namespace irr
 				wParam = KEY_SPACE;
 				alreadyUp_Jump = true;
 				WndProc(HWnd, message, wParam, lParam);
-			}			
-		}
+			}
+		}		
 
 }
 

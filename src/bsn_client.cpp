@@ -5,21 +5,21 @@
 #include <string.h>
 
 static int repeat1 = 0;
-static int repeat2 = 0;
+//static int repeat2 = 0;
 static IPaddress ipaddress1;
-static IPaddress ipaddress2;
+//static IPaddress ipaddress2;
 static TCPsocket tcpsock1;
-static TCPsocket tcpsock2;
+//static TCPsocket tcpsock2;
 static SDL_Thread *thread1;
-static SDL_Thread *thread2;
+//static SDL_Thread *thread2;
 
 #define MAXSAMP 3
 static int sample1[MAXSAMP];
-static int sample2[MAXSAMP];
+//static int sample2[MAXSAMP];
 static int center1[MAXSAMP];
-static int center2[MAXSAMP];
+//static int center2[MAXSAMP];
 static int changed1 = 0;
-static int changed2 = 0;
+//static int changed2 = 0;
 
 static int axis[MAXSAMP];
 static float scale[MAXSAMP];
@@ -38,7 +38,7 @@ static int bsn_loop1 (void *unused) {
     printf("SDLNet_Init: %s\n", SDLNet_GetError());
 	return -2;
   }
-  if (SDLNet_ResolveHost(&ipaddress1, "localhost", 9003) == -1) {
+  if (SDLNet_ResolveHost(&ipaddress1, "localhost", 9001) == -1) {
     printf("SDLNet_ResolveHost: %s\n", SDLNet_GetError());
     return -3;
   }
@@ -98,7 +98,7 @@ static int bsn_loop1 (void *unused) {
   return 0;
 }
 
-static int bsn_loop2(void *unused) {
+/*static int bsn_loop2(void *unused) {
 	int k0, n, i;
 	if (SDLNet_Init() == -1) {
 		printf("SDLNet_Init: %s\n", SDLNet_GetError());
@@ -162,7 +162,7 @@ static int bsn_loop2(void *unused) {
 	}
 	SDLNet_TCP_Close(tcpsock2);
 	return 0;
-}
+}*/
 
 int bsn_init (char *config) {
 	if (config) {
@@ -172,9 +172,9 @@ int bsn_init (char *config) {
 			fscanf(f,"%f%f%f",scale,scale+1,scale+2);
 			fscanf(f,"%d%d%d",center1,center1+1,center1+2);
 			fclose(f);
-			center2[0] = center1[0];
+			/*center2[0] = center1[0];
 			center2[1] = center1[1];
-			center2[2] = center1[2];
+			center2[2] = center1[2];*/
 		}
 	}
 	else {
@@ -187,14 +187,14 @@ int bsn_init (char *config) {
 	  center1[0] = 3500;
 	  center1[1] = 2800;
 	  center1[2] = 3500;
-	  center2[0] = 3500;
+	  /*center2[0] = 3500;
 	  center2[1] = 2800;
-	  center2[2] = 3500;
+	  center2[2] = 3500;*/
 	}
 
 	thread1 = SDL_CreateThread(bsn_loop1,"BSN_Thread", NULL);
-	thread2 = SDL_CreateThread(bsn_loop2, "BSN_Thread", NULL);
-	if (thread1 == NULL || thread2 == NULL) {
+	//thread2 = SDL_CreateThread(bsn_loop2, "BSN_Thread", NULL);
+	if (thread1 == NULL /*|| thread2 == NULL*/) {
 		fprintf(stderr, "Unable to create thread: %s\n", SDL_GetError());
 		return -1;
 	}
@@ -204,8 +204,8 @@ int bsn_init (char *config) {
 int bsn_halt () {
   repeat1 = 0;
   SDL_WaitThread(thread1, NULL);
-  repeat2 = 0;
-  SDL_WaitThread(thread2, NULL);
+  /*repeat2 = 0;
+  SDL_WaitThread(thread2, NULL);*/
   return 0;
 }
 
@@ -218,14 +218,14 @@ int bsn_state1 (float *xp, float *yp, float *zp) {
   return result;
 }
 
-int bsn_state2(float *xp, float *yp, float *zp) {
+/*int bsn_state2(float *xp, float *yp, float *zp) {
 	int result = changed2;
 	*xp = (sample2[axis[0]] - center2[axis[0]])*scale[0];
 	*yp = (sample2[axis[1]] - center2[axis[1]])*scale[1];
 	*zp = (sample2[axis[2]] - center2[axis[2]])*scale[2];
 	changed2 = 0;
 	return result;
-}
+}*/
 
 int bsn_set_center1() {
 	int i;
@@ -234,12 +234,12 @@ int bsn_set_center1() {
 	return 0;
 }
 
-int bsn_set_center2() {
+/*int bsn_set_center2() {
 	int i;
 	for (i = 0; i<MAXSAMP; i++)
 		center2[i] = sample2[i];
 	return 0;
-}
+}*/
 
 static int contestant_id = 0;
 

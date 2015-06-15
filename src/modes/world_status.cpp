@@ -54,7 +54,7 @@ WorldStatus::WorldStatus()
 void WorldStatus::reset()
 {
 	bsn_set_center1();
-	bsn_set_center2();
+	//bsn_set_center2();
     m_time            = 0.0f;
     m_auxiliary_timer = 0.0f;
     // Using SETUP_PHASE will play the track into sfx first, and has no
